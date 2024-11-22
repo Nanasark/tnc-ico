@@ -207,7 +207,7 @@ const CreditCardForm = ({ dollarAmount }: CreditCardFormProps) => {
       if (paymentIntent?.status === "succeeded") {
         setIsComplete(true);
         alert("Payment complete!");
-        revalidatePath("/");
+        revalidatePath("/")
       }
     } catch (err) {
       alert("There was an error processing your payment.");
