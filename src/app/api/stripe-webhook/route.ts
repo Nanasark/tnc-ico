@@ -47,8 +47,6 @@ const handleChargeSucceeded = async (charge: Stripe.Charge) => {
       body: `Email=${email}&Wallet=${buyerWalletAddress}&Receive=${receiveAmount}&Paid=${dollarAmount}`,
     });
 
-    console.log(url);
-
     if (!tx.ok) {
       throw "purchase failed";
     }

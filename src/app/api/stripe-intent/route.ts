@@ -8,8 +8,6 @@ export async function POST(req: Request) {
   }
   const { buyerWalletAddress, dollarAmount, email, receiveAmount } =
     await req.json();
-  //   const { amount } = await req.json();
-
   if (!buyerWalletAddress) {
     throw " buyer wallet address not found";
   }
@@ -17,10 +15,6 @@ export async function POST(req: Request) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
     apiVersion: "2024-11-20.acacia",
   });
-
-  //   if (!amount) {
-  //     throw " no amount given";
-  //   }
 
   const amountInCents = dollarAmount * 100;
 

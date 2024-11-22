@@ -6,12 +6,10 @@ import {
   PaymentElement,
   Elements,
 } from "@stripe/react-stripe-js";
-import { useActiveAccount } from "thirdweb/react";
+import { useReadContract } from "thirdweb/react";
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from "react-icons/io";
 
 export default function FiatPay() {
-  const account = useActiveAccount();
-  const address = account ? account.address : "";
   const [clientSecret, setClientSecret] = useState<string>("");
   const [buyingToken, setBuyingToken] = useState<number>(0);
   const [dollarAmount, setDollarAmount] = useState<number>(0);
@@ -80,7 +78,7 @@ export default function FiatPay() {
           <IoIosArrowRoundBack className="text-white text-xl" />
         </button>
         <button
-          disabled={!account}
+          disabled={!walletAddress}
           onClick={() => {
             onClick();
             setNext(true);
@@ -148,7 +146,7 @@ export default function FiatPay() {
               onClick();
               setNext(true);
             }}
-            disabled={!account}
+            disabled={!walletAddress}
             className="w-full p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
           >
             Pay With Credit Card
@@ -186,7 +184,7 @@ const CreditCardForm = ({ dollarAmount }: CreditCardFormProps) => {
   const returnUrl =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
-      : "https://artyume.vercel.app";
+      : "https://tnc-ico.vercel.app";
 
   const handlePayment = async () => {
     if (!stripe || !elements) {
