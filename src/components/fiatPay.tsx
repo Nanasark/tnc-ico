@@ -74,7 +74,7 @@ export default function FiatPay() {
       <div className="flex gap-5">
         <button
           onClick={() => setNext(false)}
-          className="rounded-full border border-gray-800 hover:bg-gray-900 p-2"
+          className="rounded-full border border-blue-600 hover:bg-gray-900 p-2"
         >
           <IoIosArrowRoundBack className="text-white text-xl" />
         </button>
@@ -84,7 +84,7 @@ export default function FiatPay() {
             onClick();
             setNext(true);
           }}
-          className="rounded-full border border-gray-800 hover:bg-gray-900 p-2"
+          className="rounded-full border border-blue-600 hover:bg-gray-900 p-2"
         >
           <IoIosArrowRoundForward className="text-white text-xl" />
         </button>
@@ -92,7 +92,7 @@ export default function FiatPay() {
 
       {!clientSecret || !next ? (
         <div className="flex flex-col gap-5 items-center text-gray-300 w-full max-w-md">
-          <div className="flex flex-col border border-gray-800 rounded-lg p-5 w-full">
+          <div className="flex flex-col border border-blue-600 rounded-lg p-5 w-full">
             <label htmlFor="tokenAmount" className="mb-2 text-sm">
               Enter token amount:
             </label>
@@ -102,20 +102,20 @@ export default function FiatPay() {
               value={buyingToken || ""}
               onChange={handleChange}
               placeholder="0"
-              className="w-full p-2 border border-gray-800 rounded-lg bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-blue-600 rounded-lg bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div className="flex gap-2 w-full">
-            <div className="flex-1 p-2 border border-gray-800 rounded-lg bg-gray-900 text-center">
+            <div className="flex-1 p-2 border border-blue-600 rounded-lg bg-gray-900 text-center">
               <p>{buyingToken} Tokens</p>
             </div>
-            <div className="flex-1 p-2 border border-gray-800 rounded-lg bg-gray-900 text-center">
+            <div className="flex-1 p-2 border border-blue-600 rounded-lg bg-gray-900 text-center">
               <p>Pay ${dollarAmount.toFixed(2)}</p>
             </div>
           </div>
 
-          <div className="flex flex-col border border-gray-800 rounded-lg p-5 w-full">
+          <div className="flex flex-col border border-blue-600 rounded-lg p-5 w-full">
             <label htmlFor="tokenAmount" className="mb-2 text-sm">
               Enter email
             </label>
@@ -128,7 +128,7 @@ export default function FiatPay() {
               className="w-full p-2 border border-gray-800 rounded-lg bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="flex flex-col border border-gray-800 rounded-lg p-5 w-full">
+          <div className="flex flex-col border border-blue-600 rounded-lg p-5 w-full">
             <label htmlFor="tokenAmount" className="mb-2 text-sm">
               Enter wallet address
             </label>
@@ -137,7 +137,7 @@ export default function FiatPay() {
               type="text"
               value={walletAddress || ""}
               onChange={handleAddress}
-              placeholder=""
+              placeholder="0x0000000...000"
               className="w-full p-2 border border-gray-800 rounded-lg bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -207,7 +207,7 @@ const CreditCardForm = ({ dollarAmount }: CreditCardFormProps) => {
       if (paymentIntent?.status === "succeeded") {
         setIsComplete(true);
         alert("Payment complete!");
-        revalidatePath("/")
+        revalidatePath("/");
       }
     } catch (err) {
       alert("There was an error processing your payment.");
