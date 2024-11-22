@@ -8,6 +8,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useReadContract } from "thirdweb/react";
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from "react-icons/io";
+import { revalidatePath } from "next/cache";
 
 export default function FiatPay() {
   const [clientSecret, setClientSecret] = useState<string>("");
@@ -206,6 +207,7 @@ const CreditCardForm = ({ dollarAmount }: CreditCardFormProps) => {
       if (paymentIntent?.status === "succeeded") {
         setIsComplete(true);
         alert("Payment complete!");
+        revalidatePath("/");
       }
     } catch (err) {
       alert("There was an error processing your payment.");
