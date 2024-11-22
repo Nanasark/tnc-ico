@@ -8,7 +8,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useReadContract } from "thirdweb/react";
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from "react-icons/io";
-import { revalidatePath } from "next/cache";
+import { revalidateHome } from "./revalidateHome";
 
 export default function FiatPay() {
   const [clientSecret, setClientSecret] = useState<string>("");
@@ -17,6 +17,7 @@ export default function FiatPay() {
   const [next, setNext] = useState<boolean>(false);
   const [emailAddress, setEmail] = useState<string>("");
   const [walletAddress, setWalletAddress] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const pricePerToken = 0.01;
 
@@ -146,11 +147,12 @@ export default function FiatPay() {
             onClick={() => {
               onClick();
               setNext(true);
+              setIsLoading(true);
             }}
             disabled={!walletAddress}
             className="w-full p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
           >
-            Pay With Credit Card
+            {isLoading ? "Loading..." : "Pay With Credit Card"}
           </button>
         </div>
       ) : (
@@ -207,7 +209,6 @@ const CreditCardForm = ({ dollarAmount }: CreditCardFormProps) => {
       if (paymentIntent?.status === "succeeded") {
         setIsComplete(true);
         alert("Payment complete!");
-        revalidatePath("/");
       }
     } catch (err) {
       alert("There was an error processing your payment.");
@@ -216,6 +217,9 @@ const CreditCardForm = ({ dollarAmount }: CreditCardFormProps) => {
     }
   };
 
+  if (isComplete) {
+    revalidateHome();
+  }
   return (
     <div className="flex flex-col items-center gap-4">
       <PaymentElement />
