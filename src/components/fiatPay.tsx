@@ -8,7 +8,6 @@ import {
 } from "@stripe/react-stripe-js";
 import { useReadContract } from "thirdweb/react";
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from "react-icons/io";
-import { revalidateHome } from "./revalidateHome";
 
 export default function FiatPay() {
   const [clientSecret, setClientSecret] = useState<string>("");
@@ -217,9 +216,6 @@ const CreditCardForm = ({ dollarAmount }: CreditCardFormProps) => {
     }
   };
 
-  if (isComplete) {
-    revalidateHome();
-  }
   return (
     <div className="flex flex-col items-center gap-4">
       <PaymentElement />
