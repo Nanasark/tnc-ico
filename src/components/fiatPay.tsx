@@ -24,6 +24,8 @@ export default function FiatPay() {
   const [next, setNext] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  
+
   const pricePerToken = 0.01;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -190,6 +192,7 @@ const CreditCardForm = ({ dollarAmount }: CreditCardFormProps) => {
       if (paymentIntent?.status === "succeeded") {
         setIsComplete(true);
         alert("Payment complete!");
+       window.location.reload();
       }
     } catch (err) {
       alert("There was an error processing your payment.");
@@ -198,6 +201,7 @@ const CreditCardForm = ({ dollarAmount }: CreditCardFormProps) => {
     }
   };
 
+  
   return (
     <div className="flex flex-col items-center gap-4">
       <PaymentElement />
