@@ -8,7 +8,13 @@ import {
 } from "@stripe/react-stripe-js";
 import { useActiveAccount } from "thirdweb/react";
 
-import { IoIosArrowRoundForward, IoIosArrowRoundBack } from "react-icons/io";
+import {
+  IoIosArrowRoundForward,
+  IoIosArrowRoundBack,
+  IoIosClose,
+} from "react-icons/io";
+import Link from "next/link";
+import { revalidateHome } from "./revalidatePath";
 
 export default function FiatPay() {
   const address = useActiveAccount()?.address;
@@ -30,6 +36,10 @@ export default function FiatPay() {
       setDollarAmount(0);
     }
   };
+
+  function reval() {
+    revalidateHome();
+  }
 
   if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
     throw new Error(
@@ -75,6 +85,15 @@ export default function FiatPay() {
           className="rounded-full border bg-sky-700 border-blue-600 hover:bg-gray-900 p-2"
         >
           <IoIosArrowRoundForward className="text-white text-xl" />
+        </button>
+        <button
+          onClick={() => {
+            reval();
+          }}
+          className=" text-white items-center justify-center ring-1 rounded-[20px] bg-black flex gap-2"
+        >
+          Close
+          <IoIosClose className="text-white text-md" />
         </button>
       </div>
 
