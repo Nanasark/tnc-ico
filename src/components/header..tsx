@@ -6,16 +6,16 @@ import { polygonAmoy } from "thirdweb/chains";
 
 export default function Header() {
   return (
-    <header className="relative h-[60px] bg-green-900 w-full">
+    <header className="relative h-[60px] bg-blue-500 w-full">
       <ConnectButton
         client={client}
         chain={polygonAmoy}
         supportedTokens={{
           80002: [
             {
-              name: "testtnc",
-              address: "0xab0DB6DEF25D74861897fcaE248a75c5D8D19C34",
-              symbol: "ttnc",
+              name: "ftc",
+              address: "0x852e64595771b938B970e1Dc87C69A0f66bb4dD4",
+              symbol: "ftc",
             },
           ],
         }}
