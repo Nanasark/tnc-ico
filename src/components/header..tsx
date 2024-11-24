@@ -6,7 +6,7 @@ import { polygonAmoy } from "thirdweb/chains";
 
 export default function Header() {
   return (
-    <header className="relative h-[60px] bg-blue-500 w-full">
+    <header className="relative h-[50px] bg-blue-500 w-full">
       <ConnectButton
         client={client}
         chain={polygonAmoy}
