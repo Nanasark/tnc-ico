@@ -78,7 +78,9 @@ const handleChargeSucceeded = async (charge: Stripe.Charge) => {
     );
 
     console.log("contract:", NEXT_PUBLIC_ICO_CONTRACT);
-    
+    if (!tx.ok) {
+      throw "purchase failed";
+    }
   } catch (error) {
     console.log(error);
   }

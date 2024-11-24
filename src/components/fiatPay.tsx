@@ -61,6 +61,8 @@ export default function FiatPay() {
       }),
     });
 
+    console.log(address)
+
     if (res.ok) {
       const json = await res.json();
       setClientSecret(json.clientSecret);
