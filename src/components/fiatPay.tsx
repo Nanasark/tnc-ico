@@ -58,11 +58,11 @@ export default function FiatPay() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-5 lg:p-10 bg-white border-2 border-gray-800 shadow-xl rounded-lg">
+    <div className="flex gap-5 flex-col items-center justify-center p-5 lg:p-10 bg-white border-2 border-gray-800 shadow-xl rounded-lg">
       <div className="flex gap-5">
         <button
           onClick={() => setNext(false)}
-          className="rounded-full border border-blue-600 hover:bg-gray-900 p-2"
+          className="rounded-full border bg-sky-700 border-blue-600 hover:bg-gray-900 p-2"
         >
           <IoIosArrowRoundBack className="text-white text-xl" />
         </button>
@@ -72,7 +72,7 @@ export default function FiatPay() {
             onClick();
             setNext(true);
           }}
-          className="rounded-full border border-blue-600 hover:bg-gray-900 p-2"
+          className="rounded-full border bg-sky-700 border-blue-600 hover:bg-gray-900 p-2"
         >
           <IoIosArrowRoundForward className="text-white text-xl" />
         </button>

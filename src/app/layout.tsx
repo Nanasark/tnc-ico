@@ -6,9 +6,8 @@ import { ThirdwebProvider } from "thirdweb/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "tnc ico",
-  description:
-    "TNC",
+  title: "F2C",
+  description: "fiat to crypto",
 };
 
 export default function RootLayout({
