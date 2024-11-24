@@ -83,6 +83,10 @@ const handleChargeSucceeded = async (charge: Stripe.Charge) => {
       throw "purchase failed";
     }
     revalidatePath("/");
+    if (tx.ok) {
+    
+      window.location.reload();
+    }
   } catch (error) {
     console.log(error);
   }
