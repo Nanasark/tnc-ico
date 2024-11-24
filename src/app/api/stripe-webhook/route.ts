@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { chainId } from "@/app/chain";
 import { toWei } from "thirdweb";
+import { revalidatePath } from "next/cache";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-11-20.acacia",
@@ -81,6 +82,7 @@ const handleChargeSucceeded = async (charge: Stripe.Charge) => {
     if (!tx.ok) {
       throw "purchase failed";
     }
+    revalidatePath("/");
   } catch (error) {
     console.log(error);
   }
