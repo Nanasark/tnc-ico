@@ -1,3 +1,3 @@
 export const Variables = {
-    IcoAddress: String(process.env.NEXT_PUBLIC_ICO_CONTRACT),
+    TokenAddress: String(process.env.NEXT_PUBLIC_ICO_CONTRACT),
 };

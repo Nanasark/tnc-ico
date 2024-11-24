@@ -1,3 +1,4 @@
+import { metadata } from "@/app/layout";
 import { NextResponse } from "next/server";
 import { Stripe } from "stripe";
 const { STRIPE_SECRET_KEY } = process.env;
@@ -6,8 +7,9 @@ export async function POST(req: Request) {
   if (!STRIPE_SECRET_KEY) {
     throw "Stripe secret key not found";
   }
-  const { buyerWalletAddress, dollarAmount, email, receiveAmount } =
-    await req.json();
+  const { buyerWalletAddress, dollarAmount } = await req.json();
+  //   const { amount } = await req.json();
+
   if (!buyerWalletAddress) {
     throw " buyer wallet address not found";
   }
@@ -16,6 +18,8 @@ export async function POST(req: Request) {
     apiVersion: "2024-11-20.acacia",
   });
 
+
+
   const amountInCents = dollarAmount * 100;
 
   const paymentIntent = await stripe.paymentIntents.create({
@@ -23,7 +27,7 @@ export async function POST(req: Request) {
     currency: "usd",
     description: " buying crypto with credit card",
     payment_method_types: ["card"],
-    metadata: { buyerWalletAddress, dollarAmount, email, receiveAmount },
+    metadata: { buyerWalletAddress, dollarAmount },
   });
 
   return NextResponse.json({

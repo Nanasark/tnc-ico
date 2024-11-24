@@ -5,8 +5,8 @@ import { client } from "./client";
 import { ICOABI } from "./abi";
 import { polygonAmoy } from "thirdweb/chains";
 
-export const contractIco = getContract({
-  address: Variables.IcoAddress,
+export const tokenContract = getContract({
+  address: Variables.TokenAddress,
   chain: polygonAmoy,
   client: client,
   abi: ICOABI,

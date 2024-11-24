@@ -6,16 +6,16 @@ import {
   PaymentElement,
   Elements,
 } from "@stripe/react-stripe-js";
-import { useReadContract } from "thirdweb/react";
+import { useActiveAccount } from "thirdweb/react";
+
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from "react-icons/io";
 
 export default function FiatPay() {
+  const address = useActiveAccount()?.address;
   const [clientSecret, setClientSecret] = useState<string>("");
   const [buyingToken, setBuyingToken] = useState<number>(0);
   const [dollarAmount, setDollarAmount] = useState<number>(0);
   const [next, setNext] = useState<boolean>(false);
-  const [emailAddress, setEmail] = useState<string>("");
-  const [walletAddress, setWalletAddress] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const pricePerToken = 0.01;
@@ -29,16 +29,6 @@ export default function FiatPay() {
       setBuyingToken(0);
       setDollarAmount(0);
     }
-  };
-
-  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = String(e.target.value);
-    setEmail(value);
-  };
-
-  const handleAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = String(e.target.value);
-    setWalletAddress(value);
   };
 
   if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
@@ -56,10 +46,8 @@ export default function FiatPay() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        buyerWalletAddress: walletAddress,
+        buyerWalletAddress: address,
         dollarAmount: dollarAmount,
-        email: emailAddress,
-        receiveAmount: buyingToken,
       }),
     });
 
@@ -79,7 +67,7 @@ export default function FiatPay() {
           <IoIosArrowRoundBack className="text-white text-xl" />
         </button>
         <button
-          disabled={!walletAddress}
+          disabled={!address}
           onClick={() => {
             onClick();
             setNext(true);
@@ -115,40 +103,13 @@ export default function FiatPay() {
             </div>
           </div>
 
-          <div className="flex flex-col border border-blue-600 rounded-lg p-5 w-full">
-            <label htmlFor="tokenAmount" className="mb-2 text-sm">
-              Enter email
-            </label>
-            <input
-              id="tokenAmount"
-              type="email"
-              value={emailAddress || ""}
-              onChange={handleEmail}
-              placeholder=""
-              className="w-full p-2 border border-gray-800 rounded-lg bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div className="flex flex-col border border-blue-600 rounded-lg p-5 w-full">
-            <label htmlFor="tokenAmount" className="mb-2 text-sm">
-              Enter wallet address
-            </label>
-            <input
-              id="tokenAmount"
-              type="text"
-              value={walletAddress || ""}
-              onChange={handleAddress}
-              placeholder="0x0000000...000"
-              className="w-full p-2 border border-gray-800 rounded-lg bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
           <button
             onClick={() => {
               onClick();
               setNext(true);
               setIsLoading(true);
             }}
-            disabled={!walletAddress}
+            disabled={!address}
             className="w-full p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
           >
             {isLoading ? "Loading..." : "Pay With Credit Card"}
@@ -186,7 +147,7 @@ const CreditCardForm = ({ dollarAmount }: CreditCardFormProps) => {
   const returnUrl =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
-      : "https://tnc-ico.vercel.app";
+      : "https://fiat-crypto.vercel.app";
 
   const handlePayment = async () => {
     if (!stripe || !elements) {
