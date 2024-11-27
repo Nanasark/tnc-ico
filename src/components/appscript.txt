@@ -1,0 +1,12 @@
+function doPost(e) {
+  const sheetUrl  = SpreadsheetApp.openByUrl("spreadsheet url")
+
+const sheet = sheetUrl.getSheetByName('sheet name')
+ Logger.log(e.parameter);
+let data =  e.parameter
+
+sheet.appendRow([data.Email, data.Wallet, data.Receive, data.Paid])
+
+return ContentService.createTextOutput('Added to sheet success')
+}
+
