@@ -20,6 +20,7 @@ export default function CryptoPay() {
   const address = account?.address;
   const [payValue, setPayValue] = useState<string>("");
   const [receiveValue, setReceiveValue] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const { data: tokenSaleprice } = useReadContract({
     contract: contractIco,
     method: "getTokenPrice",
@@ -43,9 +44,11 @@ export default function CryptoPay() {
       console.log(toWei(receiveValue));
 
       await sendTx(transaction);
+      setLoading(true);
       if (isSuccess) {
         console.log("transaction success");
         alert("transaction successful. please check balance :)");
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -136,7 +139,7 @@ export default function CryptoPay() {
             onClick={() => handleBuy()}
             className=" text-center w-full h-[45px] text-[18px] rounded-[40px] border-blue-500 border-[1px]"
           >
-            Buy $TNC
+            {loading ? "loading..." : " Buy $TNC"}
           </button>
         ) : (
           <ConnectButton client={client} chain={polygonAmoy} />
