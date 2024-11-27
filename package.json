@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "fiat-crypto",
-=======
-  "name": "tnc",
->>>>>>> 512ce5079221205a7b3d65ee41868fec2a99da73
   "version": "0.1.0",
   "private": true,
   "scripts": {
