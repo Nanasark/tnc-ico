@@ -21,8 +21,14 @@ export default function Header() {
   ];
 
   return (
-    <header className="text-blue-600 h-[60px] bg-white flex items-center justify-between px-4 w-full">
-      <Image src="/logo.png" width={120} height={40} alt="logo" />
+    <header className="text-blue-600 h-[60px] bg-white flex place-content-center justify-between content-center text-center px-4 w-full">
+      <Image
+        className="ml-16"
+        src="/logo.png"
+        width={200}
+        height={45}
+        alt="logo"
+      />
 
       {/* Menu Icon for Mobile */}
       <div className="lg:hidden flex items-center">
@@ -33,12 +39,18 @@ export default function Header() {
       </div>
 
       {/* Desktop Nav Links */}
-      <nav className="hidden lg:flex gap-5 items-center">
-        {navLinks.map((link, index) => (
-          <Link href={link.url} key={index} className="hover:underline">
-            {link.name}
-          </Link>
-        ))}
+      <nav className="hidden lg:mr-10 lg:gap-28 lg:flex gap-5 items-center">
+        <div className="lg:flex gap-5">
+          {navLinks.map((link, index) => (
+            <Link
+              href={link.url}
+              key={index}
+              className=" font-bold hover:underline"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
         <ConnectButton
           client={client}
           chain={polygonAmoy}
@@ -56,7 +68,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <nav className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col gap-4 p-4 lg:hidden">
+        <nav className=" absolute top-16 left-0 w-full bg-white shadow-md flex flex-col gap-4 p-4 lg:hidden">
           {navLinks.map((link, index) => (
             <Link
               href={link.url}

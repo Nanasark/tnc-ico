@@ -9,6 +9,7 @@ import Tokenomics from "@/components/tokenomics";
 import Roadmap from "@/components/roadmap";
 import FiatPay from "@/components/fiatPay";
 import Footer from "@/components/footer";
+import PayUFiatPay from "@/components/payu";
 
 export default function Home() {
   return (
@@ -29,7 +30,8 @@ export default function Home() {
             Buy $TNC WITH OTHER PAYMENT METHODS
           </h1>
           <p>HOW TO BUY?</p>
-          <FiatPay />
+          {/* <FiatPay /> */}
+        <PayUFiatPay/>
         </div>
         <br></br>
         <InfoSection />

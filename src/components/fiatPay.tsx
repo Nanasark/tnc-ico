@@ -100,7 +100,7 @@ export default function FiatPay() {
                </div> */}
             <div className="flex flex-col w-full p-2">
               <p className="mb-2 text-black text-sm">
-                How many tokens do you want?
+                Amount you are paying
               </p>
               <p className="text-black content-center h-[45px] border border-blue-600 rounded-lg  bg-white text-center">
                 Pay ${dollarAmount.toFixed(2)}
