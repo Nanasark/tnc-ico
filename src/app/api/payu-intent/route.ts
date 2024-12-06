@@ -34,7 +34,7 @@ export async function POST(req: Request) {
       productinfo: productInfo,
       firstname: email.split("@")[0],
       email,
-      surl: "https://your-domain.com/payu-success", // Replace with your success URL
+      surl: "https://tnc-ico.vercel.app/success", // Replace with your success URL
       furl: "https://your-domain.com/payu-failure", // Replace with your failure URL
       hash,
     };

@@ -8,30 +8,24 @@ const payuClient = new PayU(
     key: process.env.PAYU_MERCHANT_KEY,
     salt: process.env.PAYU_MERCHANT_SALT,
   },
-  "TEST"
-); // Change to "TEST" if in development
+  "TEST" // Change to "LIVE" when going live
+);
 
-const { PAYU_WEBHOOK_SECRET_KEY, SHEETURL } = process.env;
+const { SHEETURL } = process.env;
 
 export async function POST(req: NextRequest) {
-  if (!PAYU_WEBHOOK_SECRET_KEY) {
-    throw new Error("Did you forget to add the webhook secret in .env.local?");
-  }
-
   const body = await req.text();
-  const sig = headers().get("payu-signature") as string;
 
-  if (!sig) {
-    throw new Error("No signature provided");
+  let event;
+  try {
+    // Parse the incoming webhook payload
+    event = JSON.parse(body);
+  } catch (error) {
+    console.error("Error parsing PayU webhook payload:", error);
+    return NextResponse.json({ error: "Invalid webhook payload" }, { status: 400 });
   }
 
-  // Assuming PayU uses similar webhook signature validation as Stripe
-  if (!verifyPayUSignature(body, sig, PAYU_WEBHOOK_SECRET_KEY)) {
-    throw new Error("Invalid signature");
-  }
-
-  const event = JSON.parse(body);
-
+  // Handle event types
   switch (event.type) {
     case "payment_initiate":
       await handlePaymentInitiate(event.data);
@@ -42,25 +36,19 @@ export async function POST(req: NextRequest) {
       break;
 
     default:
-      throw new Error(`Unhandled event type: ${event.type}`);
+      console.error(`Unhandled event type: ${event.type}`);
+      return NextResponse.json({ error: `Unhandled event type: ${event.type}` }, { status: 400 });
   }
 
   return NextResponse.json({ message: "success" });
 }
 
-// Function to verify PayU webhook signature
-const verifyPayUSignature = (body: string, sig: string, secret: string) => {
-  // You can implement your signature verification logic here (like Stripe)
-  // Assuming PayU provides a similar signature process for webhook validation
-  return sig === secret; // Dummy validation, replace with actual signature validation
-};
-
 // Function to handle payment initiation
-const handlePaymentInitiate = async (data:any) => {
+const handlePaymentInitiate = async (data: any) => {
   const { txnid, amount, firstname, email, productinfo } = data;
 
   if (!txnid || !amount || !firstname || !email || !productinfo) {
-    throw new Error("Missing required fields");
+    throw new Error("Missing required fields in payment initiation data");
   }
 
   const hash = generateHash(
@@ -75,8 +63,8 @@ const handlePaymentInitiate = async (data:any) => {
     productinfo,
     firstname,
     email,
-    surl: "https://yourdomain.com/success",
-    furl: "https://yourdomain.com/failure",
+    surl: "https://tnc-ico.vercel.app/success", // Success URL
+    furl: "https://yourdomain.com/failure", // Failure URL
     hash,
   };
 
@@ -91,12 +79,12 @@ const handlePaymentInitiate = async (data:any) => {
 };
 
 // Function to handle payment verification
-const handleVerifyPayment = async (txnid:string) => {
+const handleVerifyPayment = async (txnid: string) => {
   try {
     const response = await payuClient.verifyPayment(txnid);
 
     if (response.status === 1) {
-      // Example: Assuming you want to record payment success
+      // Payment successful, record the payment success
       await handlePaymentSuccess(response.transaction_details);
     } else {
       throw new Error(`Payment verification failed: ${response.msg}`);
@@ -108,12 +96,11 @@ const handleVerifyPayment = async (txnid:string) => {
 };
 
 // Handle payment success (you can customize this further)
-const handlePaymentSuccess = async (transactionDetails:any) => {
-  const { buyerWalletAddress, dollarAmount, email, receiveAmount } =
-    transactionDetails;
+const handlePaymentSuccess = async (transactionDetails: any) => {
+  const { buyerWalletAddress, dollarAmount, email, receiveAmount } = transactionDetails;
 
   if (!buyerWalletAddress || !email) {
-    throw new Error("Email and address missing");
+    throw new Error("Email and wallet address missing");
   }
 
   try {
@@ -125,7 +112,7 @@ const handlePaymentSuccess = async (transactionDetails:any) => {
     });
 
     if (!tx.ok) {
-      throw new Error("Purchase failed");
+      throw new Error("Failed to log payment success");
     }
   } catch (error) {
     console.error("Error handling payment success:", error);
@@ -133,7 +120,7 @@ const handlePaymentSuccess = async (transactionDetails:any) => {
 };
 
 // Utility function for hash generation
-function generateHash(params:any, salt:any) {
+function generateHash(params: any, salt: any) {
   const crypto = require("crypto");
   const hashString = `${params.key}|${params.txnid}|${params.amount}|${params.productinfo}|${params.firstname}|${params.email}|||||||||||${salt}`;
   return crypto.createHash("sha512").update(hashString).digest("hex");
