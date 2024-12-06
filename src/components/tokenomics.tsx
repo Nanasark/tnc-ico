@@ -45,7 +45,7 @@ export default function Tokenomics() {
         </thead>
         <tbody>
           <tr>{tokenomics[0].content.map((cont, index) => <td key={index}>
-            {cont}
+            {cont} b
           </td>)}</tr>
         </tbody>
       </table>
