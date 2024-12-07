@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 const PayU = require("payu-websdk");
 
@@ -15,17 +14,23 @@ const { SHEETURL } = process.env;
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
-
   let event;
+
   try {
     // Parse the incoming webhook payload
     event = JSON.parse(body);
+    console.log("Received event:", event); // Debugging: log the event for verification
   } catch (error) {
     console.error("Error parsing PayU webhook payload:", error);
     return NextResponse.json(
       { error: "Invalid webhook payload" },
       { status: 400 }
     );
+  }
+
+  if (!event || !event.type) {
+    console.error("Received event does not have a valid type.");
+    return NextResponse.json({ error: "Missing event type" }, { status: 400 });
   }
 
   // Handle event types
@@ -76,7 +81,6 @@ const handlePaymentInitiate = async (data: any) => {
 
   try {
     const response = await payuClient.paymentInitiate(transactionDetails);
-    // Handle response and send the form HTML
     return { html: response };
   } catch (error) {
     console.error("Error initiating payment:", error);
@@ -90,7 +94,6 @@ const handleVerifyPayment = async (txnid: string) => {
     const response = await payuClient.verifyPayment(txnid);
 
     if (response.status === 1) {
-      // Payment successful, record the payment success
       await handlePaymentSuccess(response.transaction_details);
     } else {
       throw new Error(`Payment verification failed: ${response.msg}`);
@@ -101,7 +104,7 @@ const handleVerifyPayment = async (txnid: string) => {
   }
 };
 
-// Handle payment success (you can customize this further)
+// Handle payment success
 const handlePaymentSuccess = async (transactionDetails: any) => {
   const { buyerWalletAddress, dollarAmount, email, receiveAmount } =
     transactionDetails;
