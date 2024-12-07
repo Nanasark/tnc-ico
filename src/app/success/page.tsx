@@ -1,18 +1,22 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 export default function Success() {
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
-  const { txnid } = router.query;
 
   useEffect(() => {
-    const verifyPayment = async () => {
-      if (!txnid) return;
+    const urlParams = new URLSearchParams(window.location.search);
+    const txnid = urlParams.get("txnid");
 
+    if (!txnid) {
+      setPaymentStatus("failure");
+      setLoading(false);
+      return;
+    }
+
+    const verifyPayment = async () => {
       try {
         const response = await fetch("/api/payu-webhook", {
           method: "POST",
@@ -34,11 +38,7 @@ export default function Success() {
     };
 
     verifyPayment();
-  }, [txnid]);
-
-  const handleReturnHome = () => {
-    router.push("/");
-  };
+  }, []);
 
   return (
     <div className="container">
@@ -58,7 +58,7 @@ export default function Success() {
         </div>
       )}
 
-      <button onClick={handleReturnHome} className="btn-home">
+      <button onClick={() => (window.location.href = "/")} className="btn-home">
         Return to Home
       </button>
     </div>
