@@ -26,7 +26,13 @@ export async function POST(req: Request) {
     }|${email}|||||||||||${PAYU_MERCHANT_SALT}`;
     const hash = crypto.createHash("sha512").update(hashString).digest("hex");
 
-const Surl = `http://localhost:3000/success?txnid=${transactionId}`;
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://tnc-ico.vercel.app/success"
+    : "http://localhost:3000/success";
+
+const Surl = `${baseUrl}?txnid=${transactionId}`;
+
     // Construct the PayU payload
     const payuPayload = {
       key: PAYU_MERCHANT_KEY,
