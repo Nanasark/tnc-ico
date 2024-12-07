@@ -22,7 +22,10 @@ export async function POST(req: NextRequest) {
     event = JSON.parse(body);
   } catch (error) {
     console.error("Error parsing PayU webhook payload:", error);
-    return NextResponse.json({ error: "Invalid webhook payload" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid webhook payload" },
+      { status: 400 }
+    );
   }
 
   // Handle event types
@@ -37,7 +40,10 @@ export async function POST(req: NextRequest) {
 
     default:
       console.error(`Unhandled event type: ${event.type}`);
-      return NextResponse.json({ error: `Unhandled event type: ${event.type}` }, { status: 400 });
+      return NextResponse.json(
+        { error: `Unhandled event type: ${event.type}` },
+        { status: 400 }
+      );
   }
 
   return NextResponse.json({ message: "success" });
@@ -97,7 +103,8 @@ const handleVerifyPayment = async (txnid: string) => {
 
 // Handle payment success (you can customize this further)
 const handlePaymentSuccess = async (transactionDetails: any) => {
-  const { buyerWalletAddress, dollarAmount, email, receiveAmount } = transactionDetails;
+  const { buyerWalletAddress, dollarAmount, email, receiveAmount } =
+    transactionDetails;
 
   if (!buyerWalletAddress || !email) {
     throw new Error("Email and wallet address missing");
