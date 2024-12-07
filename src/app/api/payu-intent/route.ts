@@ -26,6 +26,7 @@ export async function POST(req: Request) {
     }|${email}|||||||||||${PAYU_MERCHANT_SALT}`;
     const hash = crypto.createHash("sha512").update(hashString).digest("hex");
 
+const Surl = `http://localhost:3000/success?txnid=${transactionId}`;
     // Construct the PayU payload
     const payuPayload = {
       key: PAYU_MERCHANT_KEY,
@@ -34,7 +35,7 @@ export async function POST(req: Request) {
       productinfo: productInfo,
       firstname: email.split("@")[0],
       email,
-      surl: "https://tnc-ico.vercel.app/success", // Replace with your success URL
+      surl: Surl, // Replace with your success URL
       furl: "https://your-domain.com/payu-failure", // Replace with your failure URL
       hash,
     };
@@ -49,4 +50,3 @@ export async function POST(req: Request) {
     );
   }
 }
-
