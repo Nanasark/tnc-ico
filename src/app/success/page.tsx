@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
