@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-const PayU = require("payu");
+const PayU = require("payu-websdk");
 
 const payuClient = new PayU(
   {
