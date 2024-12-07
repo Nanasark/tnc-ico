@@ -4,42 +4,19 @@ import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 export default function Success() {
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const txnid = new URLSearchParams(window.location.search).get("txnid");
-      console.log("Transaction ID:", txnid);
-      console.log(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
+    const txnid = urlParams.get("txnid");
+    const status = urlParams.get("status"); // Assumes 'status' is passed as query param
 
-
-    if (!txnid) {
+    if (status === "success") {
+      setPaymentStatus("success");
+    } else {
       setPaymentStatus("failure");
-      setLoading(false);
-      return;
     }
-
-    const verifyPayment = async () => {
-      try {
-        const response = await fetch("/api/payu-webhook", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ txnid }),
-        });
-
-        const data = await response.json();
-        if (data.success) {
-          setPaymentStatus("success");
-        } else {
-          setPaymentStatus("failure");
-        }
-      } catch (error) {
-        setPaymentStatus("failure");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    verifyPayment();
+    setLoading(false);
   }, []);
 
   return (

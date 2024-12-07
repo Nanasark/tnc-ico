@@ -26,12 +26,12 @@ export async function POST(req: Request) {
     }|${email}|||||||||||${PAYU_MERCHANT_SALT}`;
     const hash = crypto.createHash("sha512").update(hashString).digest("hex");
 
-const baseUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://tnc-ico.vercel.app/success"
-    : "http://localhost:3000/success";
+    const baseUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://tnc-ico.vercel.app/success"
+        : "http://localhost:3000/success";
 
-const Surl = `${baseUrl}?txnid=${transactionId}`;
+    const Surl = `${baseUrl}?txnid=${transactionId}`;
 
     // Construct the PayU payload
     const payuPayload = {
@@ -41,12 +41,26 @@ const Surl = `${baseUrl}?txnid=${transactionId}`;
       productinfo: productInfo,
       firstname: email.split("@")[0],
       email,
-      surl: Surl, // Replace with your success URL
-      furl: "https://your-domain.com/payu-failure", // Replace with your failure URL
+      surl: Surl, // Success URL
+      furl: "https://your-domain.com/payu-failure", // Failure URL
       hash,
     };
 
-    // Return the payload as a response (for frontend to redirect)
+    // Call the webhook endpoint after successful payment initiation
+   const webhookEndpoint =
+     process.env.NODE_ENV === "production"
+       ? "https://tnc-ico.vercel.app/api/payu-webhook"
+       : "http://localhost:3000/api/payu-webhook";
+
+   // Call the webhook endpoint after successful payment initiation
+   await fetch(webhookEndpoint, {
+     method: "POST",
+     headers: { "Content-Type": "application/json" },
+     body: JSON.stringify({ txnid: transactionId }),
+   });
+
+
+    // Return the payload for frontend redirection
     return NextResponse.json({ payuPayload, transactionId });
   } catch (error) {
     console.error("Error in PayU intent API:", error);
