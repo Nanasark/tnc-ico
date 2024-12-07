@@ -8,7 +8,9 @@ export default function Success() {
 
   useEffect(() => {
     const txnid = new URLSearchParams(window.location.search).get("txnid");
-    console.log("Transaction ID:", txnid);
+      console.log("Transaction ID:", txnid);
+      console.log(window.location.search);
+
 
     if (!txnid) {
       setPaymentStatus("failure");
