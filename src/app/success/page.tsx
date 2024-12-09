@@ -1,45 +1,70 @@
 "use client";
-import { useState, useEffect } from "react";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function Success() {
-  const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"loading" | "success" | "error">(
+    "loading"
+  );
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const txnid = urlParams.get("txnid");
-    const status = urlParams.get("status"); // Assumes 'status' is passed as query param
+    const verifyPayment = async () => {
+      const txnid = searchParams.get("txnid");
+      const amount = searchParams.get("amount");
+      const status = searchParams.get("status");
+      const hash = searchParams.get("hash");
+      const email = searchParams.get("email");
+      const address1 = searchParams.get("address1");
+      const address2 = searchParams.get("address2");
 
-    if (status === "success") {
-      setPaymentStatus("success");
-    } else {
-      setPaymentStatus("failure");
-    }
-    setLoading(false);
-  }, []);
+      if (txnid && amount && status && hash) {
+        try {
+          const response = await fetch("/api/payu-webhook", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              buyerWalletAddress: address1,
+              receiveAmount: address2,
+              txnid,
+              amount,
+              status,
+              hash,
+              email,
+            }),
+          });
 
-  return (
-    <div className="container">
-      {loading ? (
-        <div>Loading...</div>
-      ) : paymentStatus === "success" ? (
-        <div className="success">
-          <FaCheckCircle size={50} color="green" />
-          <h2>Payment Successful!</h2>
-          <p>Your payment has been successfully processed.</p>
-        </div>
-      ) : (
-        <div className="failure">
-          <FaTimesCircle size={50} color="red" />
-          <h2>Payment Failed</h2>
-          <p>There was an issue with your payment. Please try again.</p>
-        </div>
-      )}
+          if (response.ok) {
+            setStatus("success");
+          } else {
+            setStatus("error");
+          }
+        } catch (error) {
+          console.error("Error verifying payment:", error);
+          setStatus("error");
+        }
+      } else {
+        setStatus("error");
+      }
+    };
 
-      <button onClick={() => (window.location.href = "/")} className="btn-home">
-        Return to Home
-      </button>
-    </div>
-  );
+    verifyPayment();
+  }, [searchParams]);
+
+  if (status === "loading") {
+    return <div>Verifying payment...</div>;
+  }
+
+  if (status === "error") {
+    return (
+      <div>
+        There was an error processing your payment. Please contact support.
+      </div>
+    );
+  }
+
+  return <div>Payment successful! Thank you for your purchase.</div>;
 }

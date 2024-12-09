@@ -27,7 +27,7 @@ export default function Home() {
 
         <div className="mt-4 md:pl-24 w-full md:pr-24 pl-3 pr-3 gap-4 flex flex-col pt-10 items-center justify-center ">
           <h1 className="font-bold text-[16px] text-center md:text-[22px]">
-            Buy $TNC WITH OTHER PAYMENT METHODS
+            Buy $TNC WITH OTHER PAYMENT METHODS coming soon ...
           </h1>
           <p>HOW TO BUY?</p>
           {/* <FiatPay /> */}

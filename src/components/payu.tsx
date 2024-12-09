@@ -150,11 +150,12 @@ export default function PayUFiatPay() {
           </div>
 
           <button
+            disabled
             onClick={handlePayU}
-            disabled={!walletAddress}
-            className="w-full p-2 bg-green-600 text-white rounded-[19px] lg:h-[55px] hover:bg-green-500"
+            // disabled={!walletAddress}
+            className="w-full p-2 bg-blue-600 text-white rounded-[19px] lg:h-[55px] hover:bg-blue-300"
           >
-            {isLoading ? "Loading..." : "Pay With PayU"}
+            {isLoading ? "Loading..." : "Coming Soon ..."}
           </button>
         </div>
       ) : (

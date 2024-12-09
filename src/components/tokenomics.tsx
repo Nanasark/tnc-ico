@@ -1,8 +1,9 @@
 import Image from "next/image";
+
 export default function Tokenomics() {
   const tokenomics = [
     {
-      title: "category",
+      title: "Category",
       content: [
         "Community & Rewards",
         "Ecosystem Development",
@@ -13,12 +14,10 @@ export default function Tokenomics() {
         "Reserve Fund",
       ],
     },
-
     {
       title: "Percentage",
       content: ["40%", "20%", "15%", "5%", "10%", "5%", "5%"],
     },
-
     {
       title: "Amount",
       content: [
@@ -34,31 +33,33 @@ export default function Tokenomics() {
   ];
 
   return (
-    <div className="w-full h-[600px] p-10">
-      <table className=" bg-blue-600 w-full h-full">
+    <div className="w-full h-auto p-10 bg-blue-600 overflow-x-auto content-center text-cneter">
+      <h1 className="text-white font-bold text-[36px] text-center">Introduction To The $TNC Tokenism</h1>
+      <table
+        border={1}
+        className="bg-blue-600 w-full text-white border-collapse"
+      >
         <thead>
           <tr>
             {tokenomics.map((tokens, index) => (
-              <th key={index}> {tokens?.title}</th>
+              <th key={index} className="border px-4 py-2 text-left">
+                {tokens.title}
+              </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          <tr>{tokenomics[0].content.map((cont, index) => <td key={index}>
-            {cont} b
-          </td>)}</tr>
+          {tokenomics[0].content.map((_, rowIndex) => (
+            <tr key={rowIndex}>
+              {tokenomics.map((tokens, colIndex) => (
+                <td key={colIndex} className="border px-4 py-2 text-left">
+                  {tokens.content[rowIndex]}
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
   );
 }
-
-
- {/* <Image
-        alt="tokenomics sales"
-        src="/sale.png"
-        width={0}
-        height={0}
-        sizes="100vw"
-        style={{ width: "100%", height: "auto" }}
-      /> */}

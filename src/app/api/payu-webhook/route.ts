@@ -12,44 +12,77 @@ const payuClient = new PayU(
 const { SHEETURL } = process.env;
 
 export async function POST(req: NextRequest) {
-  const body = await req.text();
-  let event;
-
   try {
-    event = JSON.parse(body);
-    console.log("Received event:", event); // Debugging log
+    const {
+      buyerWalletAddress,
+      dollarAmount,
+      email,
+      receiveAmount,
+      txnid,
+      hash,
+      status,
+    } = await req.json();
+
+    if (
+      !buyerWalletAddress ||
+      !dollarAmount ||
+      !email ||
+      !receiveAmount ||
+      !txnid ||
+      !hash ||
+      !status
+    ) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    // Verify the hash here to ensure the request is coming from PayU
+
+    await handleVerifyPayment(
+      buyerWalletAddress,
+      dollarAmount,
+      email,
+      receiveAmount,
+      txnid,
+      status
+    );
+
+    return NextResponse.json({ message: "success" });
   } catch (error) {
-    console.error("Error parsing PayU webhook payload:", error);
+    console.error("Error processing PayU webhook payload:", error);
     return NextResponse.json(
       { error: "Invalid webhook payload" },
       { status: 400 }
     );
   }
-
-  if (!event || !event.type) {
-    return NextResponse.json({ error: "Missing event type" }, { status: 400 });
-  }
-
-  if (event.type === "verify_payment") {
-    await handleVerifyPayment(event.data.txnid);
-  }
-
-  return NextResponse.json({ message: "success" });
 }
 
 // Function to handle payment verification
-const handleVerifyPayment = async (txnid: string) => {
+const handleVerifyPayment = async (
+  buyerWalletAddress: string,
+  dollarAmount: number,
+  email: string,
+  receiveAmount: number,
+  txnid: string,
+  status: string
+) => {
   try {
     const response = await payuClient.verifyPayment(txnid);
+    console.log("PayU verification response:", response);
 
-    if (response.status === 1) {
-      const { firstname, email, amt, productinfo, buyerWalletAddress } =
-        response.transaction_details;
+    if (
+      response.status === "success" ||
+      response.status === 1 ||
+      status === "success"
+    ) {
       await handlePaymentSuccess(
-        firstname,
+        email.split("@")[0], // firstname
         email,
-        amt,
-        productinfo,
+        dollarAmount,
+        receiveAmount,
+        "Purchase", // productinfo
         buyerWalletAddress
       );
     } else {
@@ -57,6 +90,7 @@ const handleVerifyPayment = async (txnid: string) => {
     }
   } catch (error) {
     console.error("Error verifying payment:", error);
+    throw error;
   }
 };
 
@@ -64,7 +98,8 @@ const handleVerifyPayment = async (txnid: string) => {
 const handlePaymentSuccess = async (
   firstname: string,
   email: string,
-  amt: number,
+  dollarAmount: number,
+  receiveAmount: number,
   productinfo: string,
   buyerWalletAddress: string
 ) => {
@@ -77,7 +112,7 @@ const handlePaymentSuccess = async (
     const tx = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `Email=${email}&Wallet=${buyerWalletAddress}&Paid=${amt}&ProductInfo=${productinfo}&Firstname=${firstname}`,
+      body: `Email=${email}&Wallet=${buyerWalletAddress}&Receive=${receiveAmount}&Paid=${dollarAmount}`,
     });
 
     if (!tx.ok) {
@@ -85,5 +120,6 @@ const handlePaymentSuccess = async (
     }
   } catch (error) {
     console.error("Error handling payment success:", error);
+    throw error;
   }
 };

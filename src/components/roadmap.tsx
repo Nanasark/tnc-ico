@@ -33,8 +33,8 @@ export default function Roadmap() {
   ];
 
   return (
-    <section className="bg-blue-600 flex md:pl-32 md:pr-32 flex-col items-center min-h-[600px] justify-center px-4 md:px-10 ">
-      <h1 className="text-white text-2xl mb-5">Roadmap</h1>
+    <section className="bg-white flex md:pl-32 md:pr-32 flex-col items-center min-h-[600px] justify-center px-4 md:px-10 ">
+      <h1 className="text-blue-600 text-[36px] font-extrabold text-2xl mb-5">Roadmap</h1>
 
       <div className="w-full flex flex-col gap-3">
         {roadmaps.map((roadmap, index) => (
@@ -44,12 +44,12 @@ export default function Roadmap() {
           >
             {/* Phase and Dropdown Icon */}
             <div
-              className="flex items-center justify-between p-4 cursor-pointer"
+              className="flex items-center justify-between p-4 border-[1px] rounded-xl border-blue-600 cursor-pointer"
               onClick={() =>
                 setActiveIndex(activeIndex === index ? null : index)
               }
             >
-              <p className="text-center w-full text-[12px] md:text-lg font-medium">
+              <p className="text-center font-bold text-blue-600 w-full text-[12px] md:text-lg ">
                 {roadmap.phase}
               </p>
               <IoMdArrowDropdown
