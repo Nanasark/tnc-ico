@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export default function Success() {
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "loading"
@@ -10,14 +12,10 @@ export default function Success() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    const params = Object.fromEntries(searchParams.entries());
+
     const verifyPayment = async () => {
-      const txnid = searchParams.get("txnid");
-      const amount = searchParams.get("amount");
-      const status = searchParams.get("status");
-      const hash = searchParams.get("hash");
-      const email = searchParams.get("email");
-      const address1 = searchParams.get("address1");
-      const address2 = searchParams.get("address2");
+      const { txnid, amount, status, hash, email, address1, address2 } = params;
 
       if (txnid && amount && status && hash) {
         try {
