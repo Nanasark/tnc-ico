@@ -31,7 +31,7 @@ export default function Text() {
         {buttons.map((button, index) => (
           <button
             key={index}
-            className="w-2/3 font-bold rounded-[25px] h-[45px]  border-blue-500 border-[1px] items-center  "
+            className="md:w-2/3 font-bold rounded-[25px] h-[45px]  border-blue-500 border-[1px] items-center  "
           >
             {button.text}
           </button>

@@ -21,7 +21,7 @@ export default function Home() {
           <Hero />
         </div>
         <br></br>
-        <h1 className="w-full h-[30px] bg-blue-600 content-center font-bold text-[24px] text-center  text-white">
+        <h1 className="w-full h-[30px] bg-blue-600 content-center font-bold text-[12px] md:text-[24px] text-center  text-white">
           BUY THE $TNC BEFORE THE PRICE INCREASES
         </h1>
 

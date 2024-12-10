@@ -26,6 +26,11 @@ export default function CryptoPay() {
     contract: contractIco,
     method: "getTokenPrice",
   });
+
+   const { data: soldTokens} = useReadContract({
+     contract: contractIco,
+     method: "soldTokens",
+   });
   const price = tokenSaleprice
     ? parseFloat(toEther(tokenSaleprice))
     : parseFloat("0.0001");
@@ -99,7 +104,7 @@ const wallets = [
           <div className="flex flex-col gap-2">
             {" "}
             <p className="text-[18px]">Stage 1</p>
-            <p className="text-[18px] font-semibold">20000/1000000 $TNC</p>
+            <p className="text-[18px] font-semibold">{soldTokens?.toString()}/1000000 $TNC</p>
           </div>
           <div className="barGradient rounded-[25px] w-full h-[10px]"></div>
         </div>

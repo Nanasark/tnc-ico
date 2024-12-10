@@ -102,6 +102,12 @@ export default function Header() {
                 },
               ],
             }}
+            wallets={wallets}
+            showAllWallets={false}
+            connectButton={{
+              className: "connect",
+              label: "Sign in",
+            }}
           />
         </nav>
       )}
