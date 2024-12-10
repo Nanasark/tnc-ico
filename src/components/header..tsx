@@ -6,11 +6,16 @@ import { client } from "@/app/client";
 import { polygonAmoy } from "thirdweb/chains";
 import { League_Spartan } from "next/font/google";
 import { IoMdMenu } from "react-icons/io";
+import { createWallet } from "thirdweb/wallets";
 
 const league_spartan = League_Spartan({ subsets: ["latin"] });
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false); // State to toggle menu visibility
+  const wallets = [
+    createWallet("io.metamask"),
+    createWallet("com.trustwallet.app"),
+  ];
 
   const navLinks = [
     { url: "#", name: "Communities" },
@@ -62,6 +67,12 @@ export default function Header() {
                 symbol: "ttnc",
               },
             ],
+          }}
+          wallets={wallets}
+          showAllWallets={false}
+          connectButton={{
+            className: "connect",
+            label: "Sign in",
           }}
         />
       </nav>

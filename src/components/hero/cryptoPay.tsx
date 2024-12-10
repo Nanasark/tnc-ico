@@ -13,6 +13,7 @@ import { client } from "@/app/client";
 import { polygonAmoy } from "thirdweb/chains";
 import { useReadContract } from "thirdweb/react";
 import { Work_Sans } from "next/font/google";
+import { createWallet } from "thirdweb/wallets";
 const work_sans = Work_Sans({ subsets: ["latin"] });
 
 export default function CryptoPay() {
@@ -30,6 +31,11 @@ export default function CryptoPay() {
     : parseFloat("0.0001");
 
   const { mutateAsync: sendTx, isSuccess } = useSendTransaction();
+
+const wallets = [
+  createWallet("io.metamask"),
+  createWallet("com.trustwallet.app"),
+];
 
   const handleBuy = async () => {
     try {
@@ -142,7 +148,16 @@ export default function CryptoPay() {
             {loading ? "loading..." : " Buy $TNC"}
           </button>
         ) : (
-          <ConnectButton client={client} chain={polygonAmoy} />
+          <ConnectButton
+            client={client}
+            chain={polygonAmoy}
+            wallets={wallets}
+            showAllWallets={false}
+            connectButton={{
+              className: "connect",
+              label: "Sign in",
+            }}
+          />
         )}
       </div>
     </div>
