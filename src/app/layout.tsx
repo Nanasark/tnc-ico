@@ -7,8 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "tnc ico",
-  description:
-    "TNC",
+  description: "TNC",
 };
 
 export default function RootLayout({
@@ -18,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} w-screen overflow-x-hidden `}>
         <ThirdwebProvider>{children}</ThirdwebProvider>
       </body>
     </html>

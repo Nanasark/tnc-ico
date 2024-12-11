@@ -13,14 +13,14 @@ import PayUFiatPay from "@/components/payu";
 
 export default function Home() {
   return (
-    <main className="bg-white w-auto flex flex-col">
+    <main className=" w-screen flex flex-col justify-center ">
       <Header />
       <hr />
-      <div className="w-full  flex flex-col">
-        <div className="pl-5 pr-5">
+      <div className="w-full  flex flex-col ">
+        <div className=" w-full  md:h-[450px] lg:h-[510px] xl:h-[620px] pl-5 pr-5">
           <Hero />
         </div>
-        <br></br>
+      
         <h1 className="w-full h-[30px] bg-blue-600 content-center font-bold text-[12px] md:text-[24px] text-center  text-white">
           BUY THE $TNC BEFORE THE PRICE INCREASES
         </h1>
@@ -31,7 +31,7 @@ export default function Home() {
           </h1>
           <p>HOW TO BUY?</p>
           {/* <FiatPay /> */}
-        <PayUFiatPay/>
+          <PayUFiatPay />
         </div>
         <br></br>
         <InfoSection />
