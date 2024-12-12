@@ -19,9 +19,11 @@ export default function Text() {
   ];
   return (
     <div
-      className={`${league_spartan.className}  lg:ml-10 pl-12 lg:pl-0 pr-12 lg:pr-0 flex flex-col h-full gap-3  w-full  text-blue-500`}
+      className={` ${league_spartan.className} relative xl:top-[50px] lg:ml-10 pl-12 lg:pl-0 pr-12 lg:pr-0 flex flex-col h-full gap-3  w-full  content-center text-blue-500`}
     >
-      <h1 className={` font-bold text-[46px] lg:text-[76px] lg:leading-tight`}>
+      <h1
+        className={`relative z-0 font-bold text-[46px] lg:text-[70px] xl:text-[90px] lg:leading-tight`}
+      >
         $TNC Token <br></br> Sale is On
       </h1>
       <p className="text-black font-bold text-center md:text-left text-[12px] lg:text-[20px]">

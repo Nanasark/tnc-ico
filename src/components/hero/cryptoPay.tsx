@@ -94,7 +94,7 @@ const wallets = [
 
   return (
     <div
-      className={`${work_sans.className} w-[360px] lg:w-[400px] h-[400px] lg:h-[440px] flex flex-col gap-8 items-center justify-center  border-[1px] p-5 rounded-[40px] border-blue-500 `}
+      className={`${work_sans.className} w-[360px] lg:w-[400px] h-[400px] lg:h-[440px] xl:h-[480px] flex flex-col gap-8 items-center justify-center  border-[1px] p-5 rounded-[40px] border-blue-500 `}
     >
       <div className="flex gap-8 w-full">
         <div>
@@ -156,6 +156,7 @@ const wallets = [
           <ConnectButton
             client={client}
             chain={polygonAmoy}
+              theme={"light"}
             wallets={wallets}
             showAllWallets={false}
             connectButton={{

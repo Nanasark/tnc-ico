@@ -26,7 +26,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="text-blue-600 h-[60px] bg-white flex place-content-center justify-between content-center text-center px-4 w-full">
+    <header className="z-50 text-blue-600 h-[60px] bg-white flex place-content-center justify-between content-center text-center px-4 w-full">
       <Image
         className="ml-16"
         src="/logo.png"
@@ -59,15 +59,7 @@ export default function Header() {
         <ConnectButton
           client={client}
           chain={polygonAmoy}
-          supportedTokens={{
-            80002: [
-              {
-                name: "testtnc",
-                address: "0xab0DB6DEF25D74861897fcaE248a75c5D8D19C34",
-                symbol: "ttnc",
-              },
-            ],
-          }}
+         
           wallets={wallets}
           showAllWallets={false}
           connectButton={{

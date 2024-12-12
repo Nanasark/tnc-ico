@@ -33,8 +33,8 @@ export default function Tokenomics() {
   ];
 
   return (
-    <div className="w-full h-auto p-10 bg-blue-600 overflow-x-auto content-center text-cneter">
-      <h1 className="text-white font-bold text-[36px] text-center">Introduction To The $TNC Tokenism</h1>
+    <div className="w-full h-auto p-10 space-y-16 bg-blue-600 overflow-x-auto lg:min-h-[600px] my-screen:min-h-[600px] xl:h-[800px] content-center text-cneter">
+      <h1 className="text-white font-bold text-[36px] text-center xl:text-[64px]">Introduction To The $TNC Tokenism</h1>
       <table
         border={1}
         className="bg-blue-600 w-full text-white border-collapse"

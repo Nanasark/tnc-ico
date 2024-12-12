@@ -33,7 +33,7 @@ export default function Roadmap() {
   ];
 
   return (
-    <section className="bg-white flex md:pl-32 md:pr-32 flex-col items-center min-h-[600px] justify-center px-4 md:px-10 ">
+    <section className="bg-white flex md:pl-32 md:pr-32 flex-col items-center lg:min-h-[600px] justify-center px-4 md:px-10 ">
       <h1 className="text-blue-600 text-[36px] font-extrabold text-2xl mb-5">Roadmap</h1>
 
       <div className="w-full flex flex-col gap-3">

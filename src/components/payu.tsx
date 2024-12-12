@@ -75,7 +75,7 @@ export default function PayUFiatPay() {
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-center p-5 lg:pl-20 lg:pr-20 bg-white border-2 border-blue-600 rounded-[30px]">
+    <div className="flex w-full flex-col  items-center justify-center p-5 lg:pl-20 lg:pr-20 bg-white border-2 border-blue-600 rounded-[30px]">
       <div className="flex gap-5">
         <button
           onClick={() => setNext(false)}

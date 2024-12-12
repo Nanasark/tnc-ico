@@ -17,15 +17,15 @@ export default function Home() {
       <Header />
       <hr />
       <div className="w-full  flex flex-col ">
-        <div className=" w-full  md:h-[450px] lg:h-[510px] xl:h-[620px] pl-5 pr-5">
+        <div className=" w-full  md:h-[450px] lg:h-[510px] xl:h-[710px] my-screen:h-[510px] pl-5 pr-5">
           <Hero />
         </div>
-      
+
         <h1 className="w-full h-[30px] bg-blue-600 content-center font-bold text-[12px] md:text-[24px] text-center  text-white">
           BUY THE $TNC BEFORE THE PRICE INCREASES
         </h1>
 
-        <div className="mt-4 md:pl-24 w-full md:pr-24 pl-3 pr-3 gap-4 flex flex-col pt-10 items-center justify-center ">
+        <div className="mt-4 md:pl-24 space-y-10 w-full lg:h-[600px] xl:min-h-[710px]  my-screen:h-[600px] md:pr-24 pl-3 pr-3 gap-4 flex flex-col pt-10 items-center justify-center ">
           <h1 className="font-bold text-[16px] text-center md:text-[22px]">
             Buy $TNC WITH OTHER PAYMENT METHODS coming soon ...
           </h1>

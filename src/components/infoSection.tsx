@@ -26,7 +26,7 @@ export default function InfoSection() {
     },
   ];
   return (
-    <section className="w-full pl-24 pr-24 pt-28 pb-28 flex flex-col gap-5 items-center justify-center bg-blue-600 h-auto">
+    <section className="w-full lg:pl-24 lg:pr-24  p-6 pt-28 pb-28 flex flex-col gap-5 items-center justify-center bg-blue-600 lg:min-h-[600px] my-screen:min-h-[600px] xl:min-h-[720px] ">
       <h1 className="text-white text-[36px] font-extrabold text-2xl mb-5">
         QnA
       </h1>
