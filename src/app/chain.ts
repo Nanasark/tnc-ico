@@ -1,4 +1,4 @@
-import { polygonAmoy } from "thirdweb/chains";
+import { bsc,  } from "thirdweb/chains";
 
-export const chainId = polygonAmoy.id;
-export const chain = polygonAmoy;
+export const chainId = bsc.id;
+export const chain = bsc;

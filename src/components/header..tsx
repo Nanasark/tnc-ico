@@ -59,7 +59,16 @@ export default function Header() {
         <ConnectButton
           client={client}
           chain={polygonAmoy}
-         
+          supportedTokens={{
+            80002: [
+              {
+                name: "tnc",
+                address: "0x170b47f039d006396929F7734228fFc53Ab155b2",
+                symbol: "tnc",
+              },
+            ],
+          }}
+          theme={"light"}
           wallets={wallets}
           showAllWallets={false}
           connectButton={{
@@ -94,6 +103,7 @@ export default function Header() {
                 },
               ],
             }}
+            theme={"light"}
             wallets={wallets}
             showAllWallets={false}
             connectButton={{

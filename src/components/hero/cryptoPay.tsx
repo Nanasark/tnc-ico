@@ -104,7 +104,9 @@ const wallets = [
           <div className="flex flex-col gap-2">
             {" "}
             <p className="text-[18px]">Stage 1</p>
-            <p className="text-[18px] font-semibold">{soldTokens?.toString()}/1000000 $TNC</p>
+            <p className="text-[18px] font-semibold">
+              {soldTokens?.toString()}/1000000 $TNC
+            </p>
           </div>
           <div className="barGradient rounded-[25px] w-full h-[10px]"></div>
         </div>
@@ -156,9 +158,18 @@ const wallets = [
           <ConnectButton
             client={client}
             chain={polygonAmoy}
-              theme={"light"}
+            theme={"light"}
             wallets={wallets}
             showAllWallets={false}
+            supportedTokens={{
+              80002: [
+                {
+                  name: "tnc",
+                  address: "0x170b47f039d006396929F7734228fFc53Ab155b2",
+                  symbol: "tnc",
+                },
+              ],
+            }}
             connectButton={{
               className: "connect",
               label: "Sign in",
