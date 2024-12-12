@@ -19,21 +19,21 @@ export default function Text() {
   ];
   return (
     <div
-      className={` ${league_spartan.className} relative xl:top-[50px] lg:ml-10 pl-12 lg:pl-0 pr-12 lg:pr-0 flex flex-col h-full gap-3  w-full  content-center text-blue-500`}
+      className={` ${league_spartan.className} 2xl:!mt-20  text-center  xl:mt-10 my-screen:!mt-[-50px] relative xl:top-[50px] lg:ml-10 pl-12 lg:pl-0 pr-12 lg:pr-0 flex flex-col h-full gap-3  w-full  content-center text-blue-500`}
     >
       <h1
-        className={`relative z-0 font-bold text-[46px] lg:text-[70px] xl:text-[90px] lg:leading-tight`}
+        className={`2xl:!text-[110px] relative z-0 font-bold text-[46px] md:text-[40px] lg:text-[70px] xl:text-[90px] lg:leading-tight`}
       >
         $TNC Token <br></br> Sale is On
       </h1>
-      <p className="text-black font-bold text-center md:text-left text-[12px] lg:text-[20px]">
+      <p className="2xl:text-[1.5rem] text-black font-bold text-center  md:text-center text-[12px] lg:text-[20px]">
         Empowering IT professionals, One Token at a Time
       </p>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col w-full 2xl:px-5 text-center content-center gap-5">
         {buttons.map((button, index) => (
           <button
             key={index}
-            className="md:w-2/3 font-bold rounded-[25px] h-[45px]  border-blue-500 border-[1px] items-center  "
+            className="font-bold  rounded-[25px] h-[45px] 2xl:!h-[4.5rem] 2xl:text-[2rem]  border-blue-500 border-[1px] items-center  "
           >
             {button.text}
           </button>

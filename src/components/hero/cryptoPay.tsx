@@ -27,20 +27,20 @@ export default function CryptoPay() {
     method: "getTokenPrice",
   });
 
-   const { data: soldTokens} = useReadContract({
-     contract: contractIco,
-     method: "soldTokens",
-   });
+  const { data: soldTokens } = useReadContract({
+    contract: contractIco,
+    method: "soldTokens",
+  });
   const price = tokenSaleprice
     ? parseFloat(toEther(tokenSaleprice))
     : parseFloat("0.0001");
 
   const { mutateAsync: sendTx, isSuccess } = useSendTransaction();
 
-const wallets = [
-  createWallet("io.metamask"),
-  createWallet("com.trustwallet.app"),
-];
+  const wallets = [
+    createWallet("io.metamask"),
+    createWallet("com.trustwallet.app"),
+  ];
 
   const handleBuy = async () => {
     try {
@@ -94,7 +94,7 @@ const wallets = [
 
   return (
     <div
-      className={`${work_sans.className} w-[360px] lg:w-[400px] h-[400px] lg:h-[440px] xl:h-[480px] flex flex-col gap-8 items-center justify-center  border-[1px] p-5 rounded-[40px] border-blue-500 `}
+      className={`${work_sans.className} w-[360px] lg:w-[400px] 2xl:h-[600px] 2xl:w-[500px] h-[400px] lg:h-[440px] xl:h-[480px] flex flex-col gap-8 items-center justify-center  border-[1px] p-5 rounded-[40px] border-blue-500 `}
     >
       <div className="flex gap-8 w-full">
         <div>
@@ -111,12 +111,12 @@ const wallets = [
           <div className="barGradient rounded-[25px] w-full h-[10px]"></div>
         </div>
       </div>
-      <div className=" flex flex-col gap-8">
-        <div className="p-[2px] pl-[5px] pr-[5px] flex items-center justify-between w-full h-[45px] rounded-[11px] border-[1px] border-blue-500">
-          <p>Pay:</p>
+      <div className=" flex flex-col gap-8 2xl:w-full">
+        <div className="p-[2px] pl-[5px] pr-[5px] flex items-center justify-between w-full h-[45px] 2xl:h-[80px] rounded-[11px] border-[1px] border-blue-500">
+          <p className="2xl:text-[25px]">Pay:</p>
           <div>
             <input
-              className="pl-3 h-full w-3/4 outline-none rounded-md"
+              className="2xl:text-[25px] pl-3 h-full w-3/4 outline-none rounded-md"
               type="number"
               step="0.01"
               placeholder="Enter amount"
@@ -124,12 +124,12 @@ const wallets = [
               onChange={handlePayChange}
             />
           </div>
-          <p className=" p-2 w-[80px] h-full rounded-[11px] text-center border-blue-500 border-[1px]">
+          <p className=" 2xl:text-[25px]  p-2 2xl:p-5  w-[80px] 2xl:w-[120px] h-full rounded-[11px] text-center content-center border-blue-500 border-[1px]">
             BNB
           </p>
         </div>
-        <div className="p-[2px] pl-[5px] pr-[5px] flex items-center justify-between w-full h-[45px] rounded-[11px] border-[1px] border-blue-500">
-          <p>Receive:</p>
+        <div className=" 2xl:text-[25px] 2xl:h-[80px] p-[2px] pl-[5px] pr-[5px] flex items-center justify-between w-full h-[45px] rounded-[11px] border-[1px] border-blue-500">
+          <p className="2xl:text-[25px] ">Receive:</p>
           <div>
             <input
               className="pl-3 h-full w-3/4 outline-none rounded-md"
@@ -140,7 +140,7 @@ const wallets = [
               onChange={handleReceiveChange}
             />
           </div>
-          <p className=" p-2 w-[80px] h-full rounded-[11px] text-center border-blue-500 border-[1px]">
+          <p className=" 2xl:text-[25px]  p-2 w-[80px]  2xl:w-[120px] content-center h-full rounded-[11px] text-center border-blue-500 border-[1px]">
             $TNC
           </p>
         </div>
