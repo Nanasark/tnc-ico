@@ -41,7 +41,7 @@ export default function Footer() {
       <section className="flex flex-col  items-center gap-10 md:flex-row">
         <div className="flex md:w-2/6  flex-col gap-3">
           <div className="">
-            <Image alt="" src="/logo.png" width={250} height={50} />
+            <Image alt="" src="/footer.png" width={250} height={50} />
           </div>
           <div>
             techs network is the biggest community of developers, investors and
