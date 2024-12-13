@@ -17,7 +17,7 @@ export default function Home() {
       <Header />
       <hr />
       <div className="w-full  flex flex-col ">
-        <div className=" w-full  md:h-[450px] lg:h-[510px] xl:h-[89svh] my-screen:h-[88dvh] 2xl:!h-[91.7dvh] pl-5 pr-5">
+        <div className=" w-full  md:h-[450px] lg:h-[510px] xl:h-[88.7dvh] my-screen:h-[85dvh] 2xl:!h-[91dvh] pl-5 pr-5">
           <Hero />
         </div>
 

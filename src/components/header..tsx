@@ -7,6 +7,7 @@ import { polygonAmoy } from "thirdweb/chains";
 import { League_Spartan } from "next/font/google";
 import { IoMdMenu } from "react-icons/io";
 import { createWallet } from "thirdweb/wallets";
+import { chain } from "@/app/chain";
 
 const league_spartan = League_Spartan({ subsets: ["latin"] });
 
@@ -58,9 +59,9 @@ export default function Header() {
         </div>
         <ConnectButton
           client={client}
-          chain={polygonAmoy}
+          chain={chain}
           supportedTokens={{
-            80002: [
+            56: [
               {
                 name: "tnc",
                 address: "0x170b47f039d006396929F7734228fFc53Ab155b2",
@@ -93,9 +94,9 @@ export default function Header() {
           ))}
           <ConnectButton
             client={client}
-            chain={polygonAmoy}
+            chain={chain}
             supportedTokens={{
-              80002: [
+              56: [
                 {
                   name: "testtnc",
                   address: "0xab0DB6DEF25D74861897fcaE248a75c5D8D19C34",

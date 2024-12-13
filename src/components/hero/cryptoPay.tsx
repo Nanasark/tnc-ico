@@ -14,6 +14,7 @@ import { polygonAmoy } from "thirdweb/chains";
 import { useReadContract } from "thirdweb/react";
 import { Work_Sans } from "next/font/google";
 import { createWallet } from "thirdweb/wallets";
+import ProgressBar from "./progressBar";
 const work_sans = Work_Sans({ subsets: ["latin"] });
 
 export default function CryptoPay() {
@@ -31,12 +32,14 @@ export default function CryptoPay() {
     contract: contractIco,
     method: "soldTokens",
   });
+
+  const tokensSold = soldTokens ? soldTokens : 0;
   const price = tokenSaleprice
     ? parseFloat(toEther(tokenSaleprice))
-    : parseFloat("0.0001");
+    : parseFloat("1");
 
   const { mutateAsync: sendTx, isSuccess } = useSendTransaction();
-
+  console.log(soldTokens)
   const wallets = [
     createWallet("io.metamask"),
     createWallet("com.trustwallet.app"),
@@ -105,10 +108,12 @@ export default function CryptoPay() {
             {" "}
             <p className="text-[18px]">Stage 1</p>
             <p className="text-[18px] font-semibold">
-              {soldTokens?.toString()}/1000000 $TNC
+              {tokensSold.toString()}/1000000 $TNC
             </p>
           </div>
-          <div className="barGradient rounded-[25px] w-full h-[10px]"></div>
+          <div className="bg-black rounded-[25px] w-full h-[10px]">
+            <ProgressBar purchased={Number(tokensSold)} />
+          </div>
         </div>
       </div>
       <div className=" flex flex-col gap-8 2xl:w-full">
