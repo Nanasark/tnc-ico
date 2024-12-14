@@ -4,7 +4,7 @@ const league_spartan = League_Spartan({ subsets: ["latin"] });
 export default function Text() {
   const buttons = [
     {
-      link: "#",
+      link: "/whitepaper.pdf",
       text: "READ WHITEPAPER",
     },
     {
@@ -35,7 +35,15 @@ export default function Text() {
             key={index}
             className="font-bold  rounded-[25px] h-[45px] 2xl:!h-[4.5rem] 2xl:text-[2rem]  border-blue-500 border-[1px] items-center  "
           >
-            {button.text}
+            <a
+              className="w-full h-full relaive "
+              key={index}
+              href={button.link} // Set the link to the PDF
+              target="_blank" // Open in a new tab
+              rel="noopener noreferrer" // Security best practice
+            >
+              {button.text}
+            </a>
           </button>
         ))}
       </div>

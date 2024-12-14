@@ -39,8 +39,8 @@ export default function Footer() {
   return (
     <footer className="bg-black p-5 pl-10 pr-10 text-white w-full">
       <section className="flex flex-col  items-center gap-10 md:flex-row">
-        <div className="flex md:w-2/6  flex-col gap-3">
-          <div className="">
+        <div className="flex md:w-2/6 text-left flex-col gap-3">
+          <div className=" text-center">
             <Image alt="" src="/footer.png" width={250} height={50} />
           </div>
           <div>

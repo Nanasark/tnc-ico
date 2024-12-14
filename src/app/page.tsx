@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/components/header.";
+import Header from "@/components/header";
 import Hero from "@/components/hero/hero";
 // import FiatPay from "@/components/fiatPay";
 import InfoSection from "@/components/infoSection";
