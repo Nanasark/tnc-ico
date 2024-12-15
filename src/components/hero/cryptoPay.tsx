@@ -214,6 +214,7 @@ import { Work_Sans } from "next/font/google";
 import { createWallet } from "thirdweb/wallets";
 import ProgressBar from "./progressBar";
 import { chain } from "@/app/chain";
+import { isAddress } from "thirdweb";
 const work_sans = Work_Sans({ subsets: ["latin"] });
 
 export default function CryptoPay() {
@@ -221,11 +222,13 @@ export default function CryptoPay() {
   const address = account ? account.address : "";
   const [payValue, setPayValue] = useState<string>("");
   const [receiveValue, setReceiveValue] = useState<string>("");
+   const [referrar, setReferrar] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const { data: tokenSaleprice } = useReadContract({
     contract: contractIco,
     method: "rate",
   });
+
 
   console.log("rate:", tokenSaleprice);
   //   const { data: soldTokens } = useReadContract({
@@ -259,7 +262,7 @@ export default function CryptoPay() {
         contract: contractIco,
         value: BigInt(toWei(payValue)),
         method: "buyTokens",
-        params: [address],
+        params: [address,referrar],
       }) as PreparedTransaction;
 
       await sendTx(transaction);
@@ -295,6 +298,17 @@ export default function CryptoPay() {
       setReceiveValue("");
     }
   };
+
+   const handleRefer = async (e: React.ChangeEvent<HTMLInputElement>) => {
+     const value = e.target.value;
+
+     if (isAddress(value)) {
+       setReferrar(value);
+      
+     } else {
+      setReferrar("");
+     }
+   };
 
   return (
     <div
@@ -342,6 +356,18 @@ export default function CryptoPay() {
           <p className=" 2xl:text-[25px]  p-2 w-[80px]  2xl:w-[120px] content-center h-full rounded-[11px] text-center border-blue-500 border-[1px]">
             $TNC
           </p>
+        </div>
+        <div className="p-[2px] pl-[5px] pr-[5px] flex items-center justify-between w-full h-[45px] 2xl:h-[80px] rounded-[11px] border-[1px] border-blue-500">
+          <p className="2xl:text-[25px]">Referrar address:</p>
+          <div>
+            <input
+              className="2xl:text-[25px] pl-3 h-full w-3/4 outline-none rounded-md"
+              type="text"
+              placeholder="wallet address"
+              onChange={handleRefer}
+            />
+          </div>
+        
         </div>
       </div>
 

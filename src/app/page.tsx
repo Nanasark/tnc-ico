@@ -10,6 +10,7 @@ import Roadmap from "@/components/roadmap";
 import FiatPay from "@/components/fiatPay";
 import Footer from "@/components/footer";
 import PayUFiatPay from "@/components/payu";
+import UPI from "@/components/upi";
 
 export default function Home() {
   return (
@@ -25,15 +26,12 @@ export default function Home() {
           BUY THE $TNC BEFORE THE PRICE INCREASES
         </h1>
 
-        <div className="mt-4 md:pl-24 space-y-10 w-full lg:h-[600px] xl:min-h-[710px]  my-screen:h-[600px] md:pr-24 pl-3 pr-3 gap-4 flex flex-col pt-10 items-center justify-center ">
-          <h1 className="font-bold text-[16px] text-center md:text-[22px]">
-            Buy $TNC WITH OTHER PAYMENT METHODS coming soon ...
-          </h1>
-          <p>HOW TO BUY?</p>
+        <div className=" md:pl-24 min-h-[100dvh] w-full lg:h-[600px] xl:min-h-[710px] bg-blue-50  my-screen:h-[90dvh] md:pr-24 pl-3 pr-3  flex flex-col  items-center justify-center ">
           {/* <FiatPay /> */}
-          <PayUFiatPay />
+          {/* <PayUFiatPay /> */}
+          <UPI />
         </div>
-        <br></br>
+       
         <InfoSection />
         <Communities />
         <Tokenomics />
