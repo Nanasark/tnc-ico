@@ -10,6 +10,7 @@ export default function UPI() {
   const [address, setAddress] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [upiId, setUpiId] = useState<string>("");
+  const [moneyPaid, setMoneyPaid] = useState<string>("");
   const [showForm, setShowForm] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -17,7 +18,7 @@ export default function UPI() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await fetch("/api/send-data", {
+      const res = await fetch("/api/upi-form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -26,8 +27,13 @@ export default function UPI() {
           address,
           phone,
           upiId,
+          moneyPaid,
         }),
       });
+
+      if (res.ok) {
+        alert("details submitted successfully");
+      }
       // Handle response
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -37,8 +43,8 @@ export default function UPI() {
   }
 
   function copyEmail() {
-    navigator.clipboard.writeText("support@example.com").then(() => {
-      alert("Support email copied to clipboard! support@example.com");
+    navigator.clipboard.writeText("Info@techs.network").then(() => {
+      alert("Support email copied to clipboard! Info@techs.network");
     });
   }
 
@@ -192,7 +198,23 @@ export default function UPI() {
                 placeholder="phone number"
               />
             </div>
-
+            <div>
+              <label
+                htmlFor="money"
+                className="block text-sm font-medium text-blue-600"
+              >
+                Money Paid
+              </label>
+              <input
+                type="text"
+                id="money"
+                value={moneyPaid}
+                onChange={(e) => setMoneyPaid(e.target.value)}
+                className="mt-1 h-[42px] lg:h-[45px] pl-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                required
+                placeholder="amount you paid"
+              />
+            </div>
             <div>
               <label
                 htmlFor="upiId"

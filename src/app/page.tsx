@@ -26,12 +26,12 @@ export default function Home() {
           BUY THE $TNC BEFORE THE PRICE INCREASES
         </h1>
 
-        <div className=" md:pl-24 min-h-[100dvh] w-full lg:h-[600px] xl:min-h-[710px] bg-blue-50  my-screen:h-[90dvh] md:pr-24 pl-3 pr-3  flex flex-col  items-center justify-center ">
+        <div className=" md:pl-24 min-h-[100dvh] w-full lg:min-h-[600px] xl:min-h-[710px] bg-blue-50  my-screen:min-h-[90dvh] md:pr-24 pl-3 pr-3  flex flex-col  items-center justify-center ">
           {/* <FiatPay /> */}
           {/* <PayUFiatPay /> */}
           <UPI />
         </div>
-       
+
         <InfoSection />
         <Communities />
         <Tokenomics />
