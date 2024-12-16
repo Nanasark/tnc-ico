@@ -231,12 +231,15 @@ export default function CryptoPay() {
 
 
   console.log("rate:", tokenSaleprice);
-  //   const { data: soldTokens } = useReadContract({
-  //     contract: contractIco,
-  //     method: "soldTokens",
-  //   });
+    const { data: weiRaised} = useReadContract({
+      contract: contractIco,
+      method: "weiRaised",
+    });
 
-  //   const tokensSold = soldTokens ? soldTokens : 0;
+  const bnbRaised = weiRaised ? toEther(weiRaised) : 0
+  
+  const tokensSold = Number(bnbRaised ) * 610;
+  
   const price = tokenSaleprice
     ? parseFloat(toEther(tokenSaleprice))
     : parseFloat("1");
@@ -322,7 +325,7 @@ export default function CryptoPay() {
           <div className="flex flex-col gap-2">
             {" "}
             <p className="text-[18px]">Stage 1</p>
-            <p className="text-[18px] font-semibold">{20}/1000000 $TNC</p>
+            <p className="text-[18px] font-semibold">{tokensSold}/1000000 $TNC</p>
           </div>
           <div className="bg-black rounded-[25px] w-full h-[10px]">
             <ProgressBar purchased={Number(1000)} />
