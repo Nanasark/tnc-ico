@@ -1,7 +1,13 @@
-import { name } from "thirdweb/extensions/common";
+"use client";
 import { League_Spartan } from "next/font/google";
+import { TokenInfoButton } from "../tokenInfoButton";
+import { TechsNetworkTokenCard } from "../tokenInfoCard";
+import { useState } from "react";
 const league_spartan = League_Spartan({ subsets: ["latin"] });
 export default function Text() {
+  const [isCardVisible, setIsCardVisible] = useState(false);
+
+  const toggleCard = () => setIsCardVisible(!isCardVisible);
   const buttons = [
     {
       link: "/whitepaper.pdf",
@@ -10,11 +16,6 @@ export default function Text() {
     {
       link: "#",
       text: "BUY $TNC Credit/Debit card",
-    },
-
-    {
-      link: "#",
-      text: "Add Token to Wallet",
     },
   ];
   return (
@@ -46,6 +47,8 @@ export default function Text() {
             </a>
           </button>
         ))}
+        <TokenInfoButton onClick={toggleCard} />
+        <TechsNetworkTokenCard isVisible={isCardVisible} onClose={toggleCard} />
       </div>
     </div>
   );

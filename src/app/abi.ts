@@ -1,21 +1,10 @@
 export const ICOABI = [
   {
     inputs: [
-      {
-        internalType: "uint256",
-        name: "_rate",
-        type: "uint256",
-      },
-      {
-        internalType: "contract IST20",
-        name: "_token",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_max",
-        type: "uint256",
-      },
+      { internalType: "uint256", name: "_rate", type: "uint256" },
+      { internalType: "contract TNC", name: "_token", type: "address" },
+      { internalType: "uint256", name: "_max", type: "uint256" },
+      { internalType: "address", name: "_owner", type: "address" },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
@@ -70,41 +59,18 @@ export const ICOABI = [
     name: "TokenPurchase",
     type: "event",
   },
+  { stateMutability: "payable", type: "fallback" },
   {
-    stateMutability: "payable",
-    type: "fallback",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_weiAmount",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "_weiAmount", type: "uint256" }],
     name: "_getTokenAmount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_beneficiary",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_referrar",
-        type: "address",
-      },
+      { internalType: "address", name: "_beneficiary", type: "address" },
+      { internalType: "address", name: "_referrar", type: "address" },
     ],
     name: "buyTokens",
     outputs: [],
@@ -113,76 +79,36 @@ export const ICOABI = [
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_beneficiary",
-        type: "address",
-      },
+      { internalType: "address", name: "_beneficiary", type: "address" },
     ],
     name: "maxBnb",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "owner",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "purchasedBnb",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "rate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_rate",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "_rate", type: "uint256" }],
     name: "setPresaleRate",
     outputs: [],
     stateMutability: "nonpayable",
@@ -191,24 +117,12 @@ export const ICOABI = [
   {
     inputs: [],
     name: "token",
-    outputs: [
-      {
-        internalType: "contract IST20",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "contract TNC", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-    ],
+    inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
     name: "transferOwnership",
     outputs: [],
     stateMutability: "nonpayable",
@@ -217,26 +131,14 @@ export const ICOABI = [
   {
     inputs: [],
     name: "weiMaxPurchaseBnb",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "weiRaised",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
@@ -248,20 +150,11 @@ export const ICOABI = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "_amount", type: "uint256" }],
     name: "withdrawTokens",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
-  {
-    stateMutability: "payable",
-    type: "receive",
-  },
+  { stateMutability: "payable", type: "receive" },
 ] as const;
