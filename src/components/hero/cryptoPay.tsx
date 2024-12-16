@@ -222,24 +222,23 @@ export default function CryptoPay() {
   const address = account ? account.address : "";
   const [payValue, setPayValue] = useState<string>("");
   const [receiveValue, setReceiveValue] = useState<string>("");
-   const [referrar, setReferrar] = useState<string>("");
+  const [referrar, setReferrar] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const { data: tokenSaleprice } = useReadContract({
     contract: contractIco,
     method: "rate",
   });
 
-
   console.log("rate:", tokenSaleprice);
-    const { data: weiRaised} = useReadContract({
-      contract: contractIco,
-      method: "weiRaised",
-    });
+  const { data: weiRaised } = useReadContract({
+    contract: contractIco,
+    method: "weiRaised",
+  });
 
-  const bnbRaised = weiRaised ? toEther(weiRaised) : 0
-  
-  const tokensSold = Number(bnbRaised ) * 610;
-  
+  const bnbRaised = weiRaised ? toEther(weiRaised) : 0;
+
+  const tokensSold = Number(bnbRaised) * 610;
+
   const price = tokenSaleprice
     ? parseFloat(toEther(tokenSaleprice))
     : parseFloat("1");
@@ -265,22 +264,18 @@ export default function CryptoPay() {
         contract: contractIco,
         value: BigInt(toWei(payValue)),
         method: "buyTokens",
-        params: [address,referrar],
+        params: [address, referrar],
       }) as PreparedTransaction;
 
       await sendTx(transaction);
       if (isPending) {
         setLoading(true);
-      }
-
-      else if (isSuccess) {
+      } else if (isSuccess) {
         setLoading(false);
         console.log("transaction success");
         alert("transaction successful. please check balance :)");
         setLoading(false);
       }
-
-      
     } catch (error: any) {
       console.log(error);
       console.log(BigInt(toWei(payValue)));
@@ -302,16 +297,15 @@ export default function CryptoPay() {
     }
   };
 
-   const handleRefer = async (e: React.ChangeEvent<HTMLInputElement>) => {
-     const value = e.target.value;
+  const handleRefer = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
 
-     if (isAddress(value)) {
-       setReferrar(value);
-      
-     } else {
+    if (isAddress(value)) {
+      setReferrar(value);
+    } else {
       setReferrar("");
-     }
-   };
+    }
+  };
 
   return (
     <div
@@ -328,7 +322,7 @@ export default function CryptoPay() {
             <p className="text-[18px] font-semibold">{tokensSold}/1000000 $TNC</p>
           </div>
           <div className="bg-black rounded-[25px] w-full h-[10px]">
-            <ProgressBar purchased={Number(1000)} />
+            <ProgressBar purchased={Number(tokensSold)} />
           </div>
         </div>
       </div>
@@ -370,7 +364,6 @@ export default function CryptoPay() {
               onChange={handleRefer}
             />
           </div>
-        
         </div>
       </div>
 
