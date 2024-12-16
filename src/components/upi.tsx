@@ -50,7 +50,7 @@ export default function UPI() {
 
   function copyUpiId() {
     navigator.clipboard.writeText("tallammallikarjuna@okhdfcbank").then(() => {
-      alert("UPI ID copied to clipboard!");
+      alert("UPI ID copied to clipboard!  ");
     });
   }
 
