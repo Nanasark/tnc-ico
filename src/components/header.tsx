@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ConnectButton } from "thirdweb/react";
 import { client } from "@/app/client";
-import { polygonAmoy } from "thirdweb/chains";
+
 import { League_Spartan } from "next/font/google";
 import { IoMdMenu } from "react-icons/io";
 import { createWallet } from "thirdweb/wallets";
@@ -61,18 +61,11 @@ export default function Header() {
           client={client}
           chain={chain}
           supportedTokens={{
-            // 56: [
-            //   {
-            //     name: "TECHS NETWORK TOKEN",
-            //     address: "0x170b47f039d006396929F7734228fFc53Ab155b2",
-            //     symbol: "TNC",
-            //   },
-            // ],
-            80002: [
+            56: [
               {
-                name: "testtnc",
-                address: "0xab0DB6DEF25D74861897fcaE248a75c5D8D19C34",
-                symbol: "ttnc",
+                name: "TECHS NETWORK TOKEN",
+                address: "0x170b47f039d006396929F7734228fFc53Ab155b2",
+                symbol: "TNC",
               },
             ],
           }}
@@ -103,19 +96,11 @@ export default function Header() {
             client={client}
             chain={chain}
             supportedTokens={{
-              // 56: [
-              //   {
-              //     name: "TECHS NETWORK TOKEN",
-              //     address: "0x170b47f039d006396929F7734228fFc53Ab155b2",
-              //     symbol: "TNC",
-              //   },
-              // ],
-
-              80002: [
+              56: [
                 {
-                  name: "testtnc",
-                  address: "0xab0DB6DEF25D74861897fcaE248a75c5D8D19C34",
-                  symbol: "ttnc",
+                  name: "TECHS NETWORK TOKEN",
+                  address: "0x170b47f039d006396929F7734228fFc53Ab155b2",
+                  symbol: "TNC",
                 },
               ],
             }}
