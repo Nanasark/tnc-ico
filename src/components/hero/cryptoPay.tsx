@@ -273,7 +273,7 @@ export default function CryptoPay() {
       } else if (isSuccess) {
         setLoading(false);
         console.log("transaction success");
-        alert("transaction successful. please check balance :)");
+        alert("transaction successful. please  check balance to confirm");
         setLoading(false);
       }
     } catch (error: any) {
@@ -319,7 +319,9 @@ export default function CryptoPay() {
           <div className="flex flex-col gap-2">
             {" "}
             <p className="text-[18px]">Stage 1</p>
-            <p className="text-[18px] font-semibold">{tokensSold}/1000000 $TNC</p>
+            <p className="text-[18px] font-semibold">
+              {tokensSold}/1000000 $TNC
+            </p>
           </div>
           <div className="bg-black rounded-[25px] w-full h-[10px]">
             <ProgressBar purchased={Number(tokensSold)} />
