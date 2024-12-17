@@ -241,7 +241,7 @@ export default function CryptoPay() {
 
   const price = tokenSaleprice
     ? parseFloat(toEther(tokenSaleprice))
-    : parseFloat("1");
+    : parseFloat("610");
 
   const { mutateAsync: sendTx, isSuccess, isPending } = useSendTransaction();
   // console.log(soldTokens);
